@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Picko</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Picko turns a few swipes a day into a tidier camera roll. Keep what matters, set the rest aside, and confirm before anything is deleted.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;700;800;900&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-row">
+    <a class="wordmark" href="index.html" aria-label="Picko home">picko</a>
+    <nav class="nav-links" aria-label="Site">
+      <a href="#how">How it works</a>
+      <a href="support.html">Support</a>
+      <a href="privacy.html">Privacy</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- Hero: the thesis, then the thing itself -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="kicker">A few swipes every day</p>
+        <h1>A better kind of&nbsp;scrolling.</h1>
+        <p class="lede">You already swipe through other people's lives. Picko points that swipe at your own camera roll. Keep what matters, set the rest aside, and get a little room back each day.</p>
+        <div class="hero-actions">
+          <span class="store-badge" aria-label="Coming soon to the App Store">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9s-1.8-.8-3-.8c-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.8zM14.1 5.8c.6-.8 1.1-1.9 1-3-.9 0-2.1.6-2.8 1.4-.6.7-1.1 1.8-1 2.9 1.1.1 2.1-.6 2.8-1.3z"/></svg>
+            <span><small>Coming soon to the</small>App Store</span>
+          </span>
+          <span class="free-note">Free · iPhone</span>
+        </div>
+        <ul class="hero-facts">
+          <li>Your photos stay on your iPhone</li>
+          <li>No account</li>
+          <li>Nothing is deleted until you confirm</li>
+        </ul>
+      </div>
+
+      <!-- Live demo: same rules as the app, sample photos only -->
+      <div class="demo" id="demo">
+        <div class="phone" id="phone">
+          <div class="screen" id="screen">
+            <div class="deck" id="deck" aria-live="polite"></div>
+            <div class="edge edge-keep" id="edgeKeep"></div>
+            <div class="edge edge-aside" id="edgeAside"></div>
+
+            <div class="topbar">
+              <span class="chip chip-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 11.5 12 5l8 6.5V20h-5v-5H9v5H4z"/></svg>
+              </span>
+              <span class="chip meter" aria-label="Today's swipes">
+                <span class="meter-text"><b id="todayCount">0</b> / 30 today</span>
+                <span class="meter-bar"><i id="meterFill"></i></span>
+              </span>
+              <span class="chip review-chip" aria-label="Review">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13.5 5.5 5h13l2.5 8.5V19H3zm2.2-.5H9l1 2h4l1-2h3.8l-1.8-6H7z"/></svg>
+                <b id="reviewCount">0</b>
+              </span>
+            </div>
+
+            <div class="bottombar" id="bottombar">
+              <span class="size" id="cardSize">2.4 MB</span>
+              <span class="caption" id="cardCaption"></span>
+            </div>
+
+            <div class="plus" id="plus" aria-hidden="true"></div>
+            <div class="stars" id="stars" aria-hidden="true"></div>
+
+            <div class="pony" id="pony" aria-hidden="true">
+              <img id="ponyImg" src="assets/pony-peek.png" alt="">
+              <span class="bubble" id="ponyBubble"></span>
+            </div>
+
+            <!-- Review, shown when the deck is done -->
+            <div class="review" id="review" hidden>
+              <p class="review-kicker">Review before deleting</p>
+              <h3 id="reviewTitle">3 set aside</h3>
+              <div class="review-grid" id="reviewGrid"></div>
+              <p class="review-note">Nothing is deleted until you confirm.</p>
+              <button class="btn-delete" id="confirmBtn" type="button">Delete 3 · 7.1 MB</button>
+              <button class="btn-quiet" id="restartBtn" type="button">Start again</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-controls">
+          <button class="ctl ctl-aside" id="asideBtn" type="button"><span aria-hidden="true">←</span> Set aside</button>
+          <button class="ctl ctl-keep" id="keepBtn" type="button">Keep <span aria-hidden="true">→</span></button>
+        </div>
+        <p class="demo-note">Drag the photo, tap a button, or use your arrow keys. Sample photos only; this page never touches your library.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works: a real sequence, so it is numbered -->
+  <section class="how" id="how">
+    <div class="wrap">
+      <p class="kicker">How it works</p>
+      <h2>One photo. One small decision.</h2>
+      <ol class="steps">
+        <li class="step">
+          <div class="vignette v-swipe" aria-hidden="true">
+            <span class="tag tag-aside">← Set aside</span>
+            <img src="assets/travel.jpg" alt="" class="v-photo">
+            <span class="tag tag-keep">Keep →</span>
+          </div>
+          <h3><span class="num">1</span>Swipe</h3>
+          <p>Right keeps it. Left sets it aside. No menus, no folders. If a photo makes you smile, stay a while.</p>
+        </li>
+        <li class="step">
+          <div class="vignette v-review" aria-hidden="true">
+            <div class="mini-grid">
+              <img src="assets/dinner.jpg" alt=""><img src="assets/weekend.jpg" alt=""><img src="assets/tourist.jpg" alt="">
+            </div>
+            <span class="mini-label">3 set aside · 7.1 MB</span>
+          </div>
+          <h3><span class="num">2</span>Review before deleting</h3>
+          <p>Everything you set aside waits in Review. Look again, change your mind, keep anything you like.</p>
+        </li>
+        <li class="step">
+          <div class="vignette v-confirm" aria-hidden="true">
+            <span class="mini-btn">Delete 3 · 7.1 MB</span>
+            <span class="mini-sub">Then iOS asks you once more</span>
+          </div>
+          <h3><span class="num">3</span>Confirm</h3>
+          <p>Only now does anything leave. Deleted items go to Recently Deleted in Photos, where you can still bring them back for 30 days.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- The real app, recorded -->
+  <section class="real">
+    <div class="wrap real-grid">
+      <div class="real-copy">
+        <p class="kicker">The real app</p>
+        <h2>Eighteen seconds of Picko.</h2>
+        <p>Recorded in the iPhone app with sample photos. Keep, set aside, clear out a burst with Find Similar, then Review before anything is deleted.</p>
+      </div>
+      <video class="real-video" src="demo/picko-demo.mp4" poster="demo/poster.jpg" controls playsinline muted loop preload="none" aria-label="Screen recording of Picko with sample photos"></video>
+    </div>
+  </section>
+
+  <!-- Daily habit -->
+  <section class="daily">
+    <div class="wrap daily-grid">
+      <div class="daily-art" aria-hidden="true">
+        <img src="assets/pony-sleepy.png" alt="">
+      </div>
+      <div class="daily-copy">
+        <p class="kicker">There's no need to do it all today</p>
+        <h2>A little today.<br>A little tomorrow.</h2>
+        <p>You get <strong>30 swipes a day</strong>, and 50 on your first day. While the coffee brews, between stops, whenever you reach for your phone. Picko remembers where you stopped.</p>
+        <div class="allowance" aria-label="Example: 24 of 30 swipes used today">
+          <div class="allowance-head"><span>Today</span><b>24 / 30</b></div>
+          <div class="allowance-bar"><i style="width:80%"></i></div>
+        </div>
+        <p class="aside-note">When the swipes run out, the pony takes a nap. Viewing, undo, Compress and finishing Review stay free anytime.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Largest First -->
+  <section class="big">
+    <div class="wrap big-grid">
+      <div class="big-copy">
+        <p class="kicker">After your first 20 swipes</p>
+        <h2>Then go big.</h2>
+        <p><strong>Largest First</strong> opens up and shows your biggest photos and videos first, so a few swipes free real space. That three-minute video of a ceiling? Gone in one swipe.</p>
+        <p>Want to keep a big one? <strong>Compress</strong> saves a smaller copy, and you decide what happens to the original.</p>
+        <dl class="sizes">
+          <div><dt>4K video, 3 min</dt><dd>1.2 GB</dd></div>
+          <div><dt>Live Photo burst</dt><dd>86 MB</dd></div>
+          <div><dt>Screenshot</dt><dd>0.4 MB</dd></div>
+        </dl>
+      </div>
+      <div class="big-art" aria-hidden="true">
+        <img src="assets/pony-stack.png" alt="">
+      </div>
+    </div>
+  </section>
+
+  <!-- Privacy -->
+  <section class="trust">
+    <div class="wrap">
+      <h2>Your photos. Your business.</h2>
+      <div class="trust-row">
+        <div class="trust-item">
+          <h3>Stays on your iPhone</h3>
+          <p>Picko looks at your library on the device. Nothing is uploaded to us.</p>
+        </div>
+        <div class="trust-item">
+          <h3>No account, no ads</h3>
+          <p>Open it and start. No sign-up, no advertising, no tracking.</p>
+        </div>
+        <div class="trust-item">
+          <h3>You have the final say</h3>
+          <p>Picko never deletes on its own. Review first, then you confirm.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="wrap closing-grid">
+      <div>
+        <h2>Your memories. Worth a second look.</h2>
+        <p>Less doomscrolling. A little more you.</p>
+        <span class="store-badge dark" aria-label="Coming soon to the App Store">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9s-1.8-.8-3-.8c-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.8zM14.1 5.8c.6-.8 1.1-1.9 1-3-.9 0-2.1.6-2.8 1.4-.6.7-1.1 1.8-1 2.9 1.1.1 2.1-.6 2.8-1.3z"/></svg>
+          <span><small>Coming soon to the</small>App Store</span>
+        </span>
+      </div>
+      <img class="closing-pony" src="assets/pony-cheer.png" alt="" aria-hidden="true">
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-row">
+    <span class="wordmark small">picko</span>
+    <span>Made with a little care. © 2026 Xin Du</span>
+    <nav aria-label="Footer"><a href="support.html">Support</a><a href="privacy.html">Privacy</a></nav>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
