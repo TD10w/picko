@@ -59,8 +59,10 @@ p { margin: 0; }
 body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
 .nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 9; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
 .nav-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
-.wordmark { font-weight: 900; font-size: 27px; letter-spacing: -0.04em; text-decoration: none; position: relative; }
-.wordmark::after { content: ""; display: inline-block; width: .32em; height: .32em; border-radius: 50%; background: var(--yellow); margin-left: .06em; vertical-align: .05em; }
+/* Logo (Xin 11-17): the app icon + "Picko" in Baloo 2 ExtraBold. */
+.wordmark { display: inline-flex; align-items: center; gap: .32em; font-family: "Baloo 2", var(--font, ui-rounded), system-ui, sans-serif; font-weight: 800; font-size: 28px; letter-spacing: -0.02em; line-height: 1; text-decoration: none; color: inherit; }
+.wordmark img { width: 1.35em; height: 1.35em; border-radius: 22.5%; display: block; }
+.wordmark span { padding-top: .08em; }
 .wordmark.small { font-size: 21px; }
 .nav-links { display: flex; gap: 22px; font-size: 15px; font-weight: 800; }
 .nav-links a { text-decoration: none; color: var(--sub); }
